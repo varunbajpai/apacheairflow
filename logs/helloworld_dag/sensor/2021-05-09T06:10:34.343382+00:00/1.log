@@ -1,0 +1,44 @@
+[2021-05-09 06:10:35,365] {taskinstance.py:877} INFO - Dependencies all met for <TaskInstance: helloworld_dag.sensor 2021-05-09T06:10:34.343382+00:00 [queued]>
+[2021-05-09 06:10:35,388] {taskinstance.py:877} INFO - Dependencies all met for <TaskInstance: helloworld_dag.sensor 2021-05-09T06:10:34.343382+00:00 [queued]>
+[2021-05-09 06:10:35,389] {taskinstance.py:1068} INFO - 
+--------------------------------------------------------------------------------
+[2021-05-09 06:10:35,391] {taskinstance.py:1069} INFO - Starting attempt 1 of 1
+[2021-05-09 06:10:35,392] {taskinstance.py:1070} INFO - 
+--------------------------------------------------------------------------------
+[2021-05-09 06:10:35,405] {taskinstance.py:1089} INFO - Executing <Task(HttpSensor): sensor> on 2021-05-09T06:10:34.343382+00:00
+[2021-05-09 06:10:35,411] {standard_task_runner.py:52} INFO - Started process 65 to run task
+[2021-05-09 06:10:35,417] {standard_task_runner.py:76} INFO - Running: ['airflow', 'tasks', 'run', 'helloworld_dag', 'sensor', '2021-05-09T06:10:34.343382+00:00', '--job-id', '123', '--pool', 'default_pool', '--raw', '--subdir', 'DAGS_FOLDER/helloworld.py', '--cfg-path', '/tmp/tmpk_l18ffx', '--error-file', '/tmp/tmprcql7r8j']
+[2021-05-09 06:10:35,418] {standard_task_runner.py:77} INFO - Job 123: Subtask sensor
+[2021-05-09 06:10:35,486] {logging_mixin.py:104} INFO - Running <TaskInstance: helloworld_dag.sensor 2021-05-09T06:10:34.343382+00:00 [running]> on host 2900f64db589
+[2021-05-09 06:10:35,545] {taskinstance.py:1283} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=airflow
+AIRFLOW_CTX_DAG_ID=helloworld_dag
+AIRFLOW_CTX_TASK_ID=sensor
+AIRFLOW_CTX_EXECUTION_DATE=2021-05-09T06:10:34.343382+00:00
+AIRFLOW_CTX_DAG_RUN_ID=manual__2021-05-09T06:10:34.343382+00:00
+[2021-05-09 06:10:35,548] {http.py:102} INFO - Poking: /
+[2021-05-09 06:10:35,575] {taskinstance.py:1482} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 1138, in _run_raw_task
+    self._prepare_and_execute_task_with_callbacks(context, task)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 1311, in _prepare_and_execute_task_with_callbacks
+    result = self._execute_task(context, task_copy)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/models/taskinstance.py", line 1341, in _execute_task
+    result = task_copy.execute(context=context)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/sensors/base.py", line 228, in execute
+    while not self.poke(context):
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/providers/http/sensors/http.py", line 118, in poke
+    raise exc
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/providers/http/sensors/http.py", line 108, in poke
+    extra_options=self.extra_options,
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/providers/http/hooks/http.py", line 122, in run
+    session = self.get_conn(headers)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/providers/http/hooks/http.py", line 72, in get_conn
+    conn = self.get_connection(self.http_conn_id)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/hooks/base.py", line 67, in get_connection
+    conn = Connection.get_connection_from_secrets(conn_id)
+  File "/home/airflow/.local/lib/python3.6/site-packages/airflow/models/connection.py", line 354, in get_connection_from_secrets
+    raise AirflowNotFoundException(f"The conn_id `{conn_id}` isn't defined")
+airflow.exceptions.AirflowNotFoundException: The conn_id `my_httpcon` isn't defined
+[2021-05-09 06:10:35,581] {taskinstance.py:1532} INFO - Marking task as FAILED. dag_id=helloworld_dag, task_id=sensor, execution_date=20210509T061034, start_date=20210509T061035, end_date=20210509T061035
+[2021-05-09 06:10:35,635] {local_task_job.py:146} INFO - Task exited with return code 1
